@@ -23,9 +23,12 @@ jobs:
 
       - name: 'Build Inventory Image'
         run: |
-          docker build  -f apps/OpenSign/Dockerfile . --tag ghcr.io/baldator/opensign:${GITHUB_REF##*/}
+          cd apps/OpenSign
+          docker build . --tag ghcr.io/baldator/opensign:${GITHUB_REF##*/}
           docker push ghcr.io/baldator/opensign:${GITHUB_REF##*/}
-          docker build  -f apps/OpenSignServer/Dockerfile . --tag ghcr.io/baldator/opensign-server:${GITHUB_REF##*/}
+          cd ../OpenSignServer
+          docker build . --tag ghcr.io/baldator/opensign-server:${GITHUB_REF##*/}
           docker push ghcr.io/baldator/opensign-server:${GITHUB_REF##*/}
-          docker build  -f apps/mongo/Dockerfile . --tag ghcr.io/baldator/opensign-mongo:${GITHUB_REF##*/}
+          cd ../mongo
+          docker build . --tag ghcr.io/baldator/opensign-mongo:${GITHUB_REF##*/}
           docker push ghcr.io/baldator/opensign-mongo:${GITHUB_REF##*/}
